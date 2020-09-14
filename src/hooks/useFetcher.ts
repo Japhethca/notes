@@ -1,6 +1,6 @@
 import useSWR from "swr";
 
-import { fetcher } from "../api/client";
+import { fetcher } from "../api-client/client";
 
 type CallBack = () => any;
 
