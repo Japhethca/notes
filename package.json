@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "db:update": "prisma introspect",
+    "db:generate": "prisma generate"
   },
   "dependencies": {
     "@chakra-ui/core": "^0.8.0",
@@ -23,6 +25,7 @@
     "swr": "^0.3.2"
   },
   "devDependencies": {
+    "@prisma/cli": "^2.6.2",
     "@types/bcrypt": "^3.0.0",
     "@types/cors": "^2.8.7",
     "@types/jsonwebtoken": "^8.5.0",
