@@ -4,6 +4,7 @@ export const SET_ACTIVE_NOTE = "SET_ACTIVE_NOTE";
 export const SET_ACTIVE_USER = "SET_ACTIVE_USER";
 export const USER_LOGOUT = "USER_LOGOUT";
 export const EDITED_USER = "EDITED_USER";
+export const RESET_VIEWS = "RESET_VIEWS";
 
 // note view states
 export const NOTE_EDIT_VIEW = "NOTE_EDIT_VIEW";
