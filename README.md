@@ -1,6 +1,6 @@
 # Notes
 
-A simple notes applications
+A simple notes application
 
 ## Getting Started
 
