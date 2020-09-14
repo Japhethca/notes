@@ -1,8 +1,26 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Notes
+
+A simple notes applications
 
 ## Getting Started
 
-First, run the development server:
+### Install dependencies
+
+Ensure you have the following installed on your machine
+
+- NodeJS
+- Python
+- Pipenv (a python package manager)
+
+run `yarn install` to install dependencies
+
+navigate to `data-store` directory and run `pipenv install`
+
+Create a `.env` file in the root of the projects with values as shown in `.env-sample`.
+
+Run database migration by navigating to `data-store` and run `pipenv run alembic upgrade head`
+
+Run the development server:
 
 ```bash
 npm run dev
