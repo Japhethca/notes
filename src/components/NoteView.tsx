@@ -1,8 +1,10 @@
 import { useContext, FunctionComponent } from "react";
-import { Box, Text, Button, Flex } from "@chakra-ui/core";
+import { Box, Text, Flex } from "@chakra-ui/core";
+import marked from "marked";
 
 import { storeContext, setNoteView } from "../store";
 import { NOTE_LIST_VIEW, NOTE_EDIT_VIEW } from "../store/constants";
+import ActionButton from "./ActionButton";
 
 interface NoteFormProps {
   note?: INote;
@@ -19,36 +21,33 @@ const NoteForm: FunctionComponent<NoteFormProps> = ({ note }) => {
         bg="#fff"
         mt="0"
         mb="2"
+        borderRadius="5px"
       >
         {note.title}
       </Text>
       <Text
         fontSize={["md", "xl", "xl"]}
         boxSizing="border-box"
-        height="50vh"
+        height="40vh"
         bg="#fff"
         p="2"
         mb="3"
-      >
-        {note.description}
-      </Text>
+        borderRadius="5px"
+        dangerouslySetInnerHTML={{ __html: marked(note.description) }}
+      ></Text>
       <Flex>
-        <Button
+        <ActionButton
           onClick={() => dispatch(setNoteView(NOTE_EDIT_VIEW))}
           type="submit"
           color="#fc5c9c"
-          border="0"
           mr="2"
-        >
-          Edit
-        </Button>
-        <Button
+          text="Edit"
+        />
+        <ActionButton
           onClick={() => dispatch(setNoteView(NOTE_LIST_VIEW))}
           color="grey"
-          border="0"
-        >
-          View Notes
-        </Button>
+          text="View Notes"
+        />
       </Flex>
     </Box>
   );

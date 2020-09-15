@@ -1,6 +1,7 @@
 import { FormControl, Input, Flex, Button, Text } from "@chakra-ui/core";
 import { useState, useContext } from "react";
 
+import ActionButton from "./ActionButton";
 import { storeContext, setUserView, USER_LIST_VIEW } from "../store";
 import client from "../api-client/client";
 
@@ -50,25 +51,21 @@ const NewUserForm = () => {
             width="100%"
           />
           <Flex>
-            <Button
+            <ActionButton
               isLoading={isLoading}
               flex="1"
               type="submit"
               m="1"
-              border="0"
+              text="Create"
               color="#fc5c9c"
-            >
-              Create
-            </Button>
-            <Button
+            />
+            <ActionButton
               flex="1"
-              border="0"
               m="1"
               color="grey"
               onClick={() => dispatch(setUserView(USER_LIST_VIEW))}
-            >
-              Cancel
-            </Button>
+              text="Cancel"
+            />
           </Flex>
         </FormControl>
       </form>

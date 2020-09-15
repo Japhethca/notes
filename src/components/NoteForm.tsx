@@ -1,22 +1,21 @@
-import {
-  Box,
-  FormControl,
-  Input,
-  Textarea,
-  Button,
-  Flex,
-} from "@chakra-ui/core";
+import { Box, FormControl, Input, Flex } from "@chakra-ui/core";
 import { useState, useContext } from "react";
+import dynamic from "next/dynamic";
 
 import client from "../api-client/client";
 import { storeContext, setNoteView } from "../store";
 import { getUserfromCookie } from "../libs/cookie";
-import { NOTE_LIST_VIEW, NOTE_EDIT_VIEW } from "../store/constants";
+import { NOTE_LIST_VIEW } from "../store/constants";
+import ActionButton from "./ActionButton";
 
 interface NoteFormProps {
   editNote?: INote;
   isEditing?: boolean;
 }
+
+const ReactRTE = dynamic(() => import("./RichEditor"), {
+  ssr: false,
+});
 
 const NoteForm = ({ editNote, isEditing = false }: NoteFormProps) => {
   const { dispatch } = useContext(storeContext);
@@ -29,9 +28,13 @@ const NoteForm = ({ editNote, isEditing = false }: NoteFormProps) => {
     setNote({ ...note, [e.target.name]: e.target.value });
   };
 
+  const editorChange = (value: string) => {
+    setNote({ ...note, description: value });
+  };
+
   const handleSubmit = async (note, e) => {
-    setIsLoading(true);
     e.preventDefault();
+    setIsLoading(true);
     const user = getUserfromCookie();
     let data = user ? { ...note, user_id: user.id } : note;
     if (data.id) {
@@ -42,7 +45,6 @@ const NoteForm = ({ editNote, isEditing = false }: NoteFormProps) => {
     await client.post("/notes", data);
     return dispatch(setNoteView(NOTE_LIST_VIEW));
   };
-
   return (
     <Box>
       <FormControl>
@@ -61,36 +63,21 @@ const NoteForm = ({ editNote, isEditing = false }: NoteFormProps) => {
           focusBorderColor="#fccde2"
           value={note.title}
         />
-        <Textarea
-          value={note.description}
-          onChange={handleChange}
-          focusBorderColor="#fccde2"
-          fontSize={["md", "xl", "xl"]}
-          name="description"
-          boxSizing="border-box"
-          border="0"
-          resize="vertical"
-          height="50vh"
-          mb="3"
-        ></Textarea>
+        <ReactRTE onChange={editorChange} initialValue={note.description} />
         <Flex>
-          <Button
+          <ActionButton
             onClick={(e) => handleSubmit(note, e)}
             type="submit"
             color="#fc5c9c"
-            border="0"
             mr="2"
             isLoading={isLoading}
-          >
-            {isEditing ? "Update" : "Create"} {isLoading && "...."}
-          </Button>
-          <Button
+            text={isEditing ? "Update" : "Create"}
+          />
+          <ActionButton
             onClick={() => dispatch(setNoteView(NOTE_LIST_VIEW))}
             color="grey"
-            border="0"
-          >
-            Cancel
-          </Button>
+            text="Cancel"
+          />
         </Flex>
       </FormControl>
     </Box>
