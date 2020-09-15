@@ -20,9 +20,11 @@ model users {
 }
 
 model notes {
-  id          Int     @default(autoincrement()) @id
+  id          Int       @default(autoincrement()) @id
   title       String?
   description String?
   user_id     Int?
-  users       users?  @relation(fields: [user_id], references: [id])
+  created_at  DateTime? @default(now())
+  updated_at  DateTime?
+  users       users?    @relation(fields: [user_id], references: [id])
 }
