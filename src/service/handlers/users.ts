@@ -56,11 +56,13 @@ export const userLogin: NextApiHandler = async (
   const user = await prisma.users.findOne({
     where: { username: toLower(username) },
   });
-  if (!user ?? !bcrypt.compareSync(password, user?.password || "")) {
+  if (!bcrypt.compareSync(password, user?.password || "")) {
     return res.status(401).json({ message: "Invalid login credentials" });
   }
   const token = jwt.sign(
-    { user: { username: user?.username, id: user?.id } },
+    {
+      user: { username: user?.username, id: user?.id, is_admin: user.is_admin },
+    },
     process.env?.SECRET_KEY || ""
   );
   return res.status(200).json({ message: "success", user, token });
