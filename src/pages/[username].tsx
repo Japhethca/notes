@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 
-import UserLayout from "../components/Layout/UserLayout";
-import { NoteList } from "../components/NoteList";
+import UserLayout from "../components/Layout";
+import NoteList from "../components/NoteList";
 import { storeContext } from "../store";
 import {
   NOTE_EDIT_VIEW,
