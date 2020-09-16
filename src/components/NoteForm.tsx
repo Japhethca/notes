@@ -3,9 +3,8 @@ import { useState, useContext } from "react";
 import dynamic from "next/dynamic";
 
 import client from "../api-client/client";
-import { storeContext, setNoteView } from "../store";
+import { storeContext, setNoteView, NOTE_LIST_VIEW } from "../store";
 import { getUserfromCookie } from "../libs/cookie";
-import { NOTE_LIST_VIEW } from "../store/constants";
 import ActionButton from "./ActionButton";
 
 interface NoteFormProps {
@@ -50,32 +49,36 @@ const NoteForm = ({ editNote, isEditing = false }: NoteFormProps) => {
       <FormControl>
         <Input
           onChange={handleChange}
+          value={note.title}
+          type="text"
+          name="title"
+          placeholder="Note Title"
           fontSize={["2xl", "2xl", "3xl"]}
           pt={[8, 8, 10]}
           pb={[8, 8, 10]}
           border="0"
           outline="0"
           boxSizing="border-box"
-          type="text"
-          name="title"
-          placeholder="Note Title"
           mb="2"
-          focusBorderColor="#fccde2"
-          value={note.title}
+          focusBorderColor="gray.300"
+          _placeholder={{
+            color: "gray.400",
+          }}
+          color="gray.500"
         />
         <ReactRTE onChange={editorChange} initialValue={note.description} />
         <Flex>
           <ActionButton
             onClick={(e) => handleSubmit(note, e)}
             type="submit"
-            color="#fc5c9c"
+            color="pink.500"
             mr="2"
             isLoading={isLoading}
             text={isEditing ? "Update" : "Create"}
           />
           <ActionButton
             onClick={() => dispatch(setNoteView(NOTE_LIST_VIEW))}
-            color="grey"
+            color="gray.500"
             text="Cancel"
           />
         </Flex>

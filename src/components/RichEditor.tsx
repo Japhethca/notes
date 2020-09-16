@@ -1,7 +1,8 @@
 import React from "react";
 import RichTextEditor, { EditorValue } from "react-rte";
-
 import { ToolbarConfig } from "react-rte/lib/lib/EditorToolbarConfig";
+
+import styles from "./RichEditor.module.css";
 
 interface EditorProps {
   onChange: (v: string) => void;
@@ -21,14 +22,30 @@ export const Editor: React.FC<EditorProps> = ({ onChange, initialValue }) => {
   const toolbarConfig: ToolbarConfig = {
     display: ["INLINE_STYLE_BUTTONS", "BLOCK_TYPE_BUTTONS"],
     INLINE_STYLE_BUTTONS: [
-      { label: "Bold", style: "BOLD", className: "custom-css-class" },
-      { label: "Italic", style: "ITALIC" },
-      { label: "Underline", style: "UNDERLINE" },
-      { label: "StrikeThrough", style: "STRIKETHROUGH" },
+      {
+        label: "Bold",
+        style: "BOLD",
+        className: styles.Button,
+      },
+      { label: "Italic", style: "ITALIC", className: styles.Button },
+      { label: "Underline", style: "UNDERLINE", className: styles.Button },
+      {
+        label: "StrikeThrough",
+        style: "STRIKETHROUGH",
+        className: styles.Button,
+      },
     ],
     BLOCK_TYPE_BUTTONS: [
-      { label: "Bullet List", style: "unordered-list-item" },
-      { label: "Number List", style: "ordered-list-item" },
+      {
+        label: "Bullet List",
+        style: "unordered-list-item",
+        className: styles.Button,
+      },
+      {
+        label: "Number List",
+        style: "ordered-list-item",
+        className: styles.Button,
+      },
     ],
   };
   return (
@@ -36,6 +53,7 @@ export const Editor: React.FC<EditorProps> = ({ onChange, initialValue }) => {
       onChange={handleEditorChange}
       value={value}
       toolbarConfig={toolbarConfig}
+      editorClassName={styles.Editor}
       rootStyle={{
         marginBottom: "1rem",
       }}
