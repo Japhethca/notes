@@ -10,17 +10,16 @@ import {
   Text,
 } from "@chakra-ui/core";
 import { useState, FunctionComponent } from "react";
+import NextLink from "next/link";
 
 interface LoginFormProps {
   onSubmit?: (e: any) => void;
-  header?: string;
   hasError?: boolean;
   isLoading?: boolean;
 }
 
 const LoginForm: FunctionComponent<LoginFormProps> = ({
   onSubmit,
-  header,
   hasError,
   isLoading = false,
 }) => {
@@ -41,15 +40,17 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
         flexDirection="column"
         mt={[4, 10]}
       >
-        <Link
-          href="/"
-          _hover={{ textDecoration: "none" }}
-          _focus={{ outline: 0 }}
-        >
-          <Text fontSize={["3xl"]} m="2" color="#92898a">
+        <NextLink href="/" shallow passHref prefetch>
+          <Link
+            _hover={{ textDecoration: "none" }}
+            _focus={{ outline: 0 }}
+            fontSize={["3xl"]}
+            m="2"
+            color="pink.200"
+          >
             Notes
-          </Text>
-        </Link>
+          </Link>
+        </NextLink>
         <Flex
           flexDirection="column"
           bg="#fff"
@@ -57,39 +58,65 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
           rounded="5px"
           padding="3"
         >
-          <Heading textAlign="center" as="h4" size="lg" color="#cb3b3b">
-            {header || "User Login"}
+          <Heading textAlign="center" as="h4" size="lg" color="gray.500">
+            User Login{" "}
           </Heading>
           {hasError && (
-            <Box mt="2" mb="2" color="#ff5959">
-              Invalid Login Credentials
+            <Box mb="2" color="red.400" textAlign="center">
+              Invalid login credentials
             </Box>
           )}
           <form onSubmit={handleSubmit}>
             <FormControl>
-              <FormLabel htmlFor="username">Username</FormLabel>
+              <FormLabel htmlFor="username" color="gray.500">
+                Username
+              </FormLabel>
               <Input
-                borderColor="grey"
                 onChange={handleChange}
-                boxSizing="border-box"
-                type="text"
                 name="username"
-                mb="2"
-              />
-              <FormLabel htmlFor="password">Password</FormLabel>
-              <Input
+                type="text"
+                outline="0"
                 borderColor="grey"
-                onChange={handleChange}
                 boxSizing="border-box"
                 mb="2"
+                _focus={{
+                  outline: 0,
+                }}
+                color="gray.600"
+                isInvalid={hasError}
+                _invalid={{
+                  borderColor: "red.500",
+                }}
+              />
+              <FormLabel htmlFor="password" color="gray.500">
+                Password
+              </FormLabel>
+              <Input
+                onChange={handleChange}
                 type="password"
                 name="password"
+                outline="0"
+                borderColor="grey"
+                boxSizing="border-box"
+                mb="2"
+                _focus={{
+                  outline: 0,
+                }}
+                color="gray.600"
+                isInvalid={hasError}
+                _invalid={{
+                  borderColor: "red.500",
+                }}
               />
               <Button
-                borderColor="grey"
-                color="#cb3b3b"
                 type="submit"
                 isLoading={isLoading}
+                border="0"
+                bg="gray.400"
+                color="white"
+                _hover={{
+                  bg: "gray.500",
+                }}
               >
                 Login
               </Button>
