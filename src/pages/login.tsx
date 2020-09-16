@@ -12,11 +12,15 @@ const UserLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const onSubmit = async (loginData: NoteUser) => {
+  const onSubmit = async (userData: NoteUser) => {
+    if (!userData.username || !userData.password) {
+      setHasError(true);
+      return;
+    }
     setIsLoading(true);
     setHasError(false);
     try {
-      const res = await client.post("/users/login", loginData);
+      const res = await client.post("/users/login", userData);
       const { token, user } = res.data;
       setAuthToken(token);
       handleLogin(user);

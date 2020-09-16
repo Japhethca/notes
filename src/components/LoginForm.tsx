@@ -24,9 +24,11 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
   isLoading = false,
 }) => {
   const [user, setUser] = useState({});
+
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(user);
