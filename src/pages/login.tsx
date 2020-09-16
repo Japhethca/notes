@@ -12,13 +12,19 @@ const UserLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const onSubmit = async (user: NoteUser) => {
+  const onSubmit = async (loginData: NoteUser) => {
     setIsLoading(true);
+    setHasError(false);
     try {
-      const res = await client.post("/users/login", user);
-      setAuthToken(res.data.token);
-      handleLogin(res.data.user);
-      router.push("/[username]", `/${res.data.user.username}`, {
+      const res = await client.post("/users/login", loginData);
+      const { token, user } = res.data;
+      setAuthToken(token);
+      handleLogin(user);
+      if (user.is_admin) {
+        router.push("/admin");
+        return;
+      }
+      router.push("/[username]", `/${user.username}`, {
         shallow: true,
       });
     } catch (err) {
