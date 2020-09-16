@@ -4,4 +4,5 @@ import { fetcher } from "../api-client/client";
 
 type CallBack = () => any;
 
-export default (url: string | CallBack) => useSWR(url, fetcher);
+const useFetcher = (url: string | CallBack) => useSWR(url, fetcher);
+export default useFetcher;

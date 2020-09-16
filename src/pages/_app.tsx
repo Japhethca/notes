@@ -4,7 +4,7 @@ import "../styles/base.css";
 import Provider from "../store/Provider";
 import { setDefaultHeaders } from "../api-client/client";
 
-export default ({ Component, pageProps }) => {
+const Application = ({ Component, pageProps }) => {
   setDefaultHeaders();
   return (
     <Provider>
@@ -14,3 +14,5 @@ export default ({ Component, pageProps }) => {
     </Provider>
   );
 };
+
+export default Application;
