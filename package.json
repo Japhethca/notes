@@ -9,7 +9,7 @@
     "db:update": "prisma introspect",
     "db:generate": "prisma generate",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch --coverage"
   },
   "dependencies": {
     "@chakra-ui/core": "^0.8.0",
