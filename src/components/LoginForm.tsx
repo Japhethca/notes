@@ -28,7 +28,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(user);
@@ -42,7 +42,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = ({
         flexDirection="column"
         mt={[4, 10]}
       >
-        <NextLink href="/" shallow passHref prefetch>
+        <NextLink href="/" shallow passHref>
           <Link
             _hover={{ textDecoration: "none" }}
             _focus={{ outline: 0 }}
