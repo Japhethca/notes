@@ -28,12 +28,12 @@ const Note: FunctionComponent<NoteProps> = ({
   >
     <Link
       onClick={() => onClick(note)}
-      color="gray.600"
+      color="pink.500"
       fontSize={["1em", "1.2em"]}
       cursor="pointer"
       _hover={{
         textDecoration: "none",
-        color: "gray.700",
+        color: "pink.700",
       }}
     >
       {note.title || "[No Title]"}
