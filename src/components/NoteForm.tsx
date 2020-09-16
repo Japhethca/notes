@@ -44,6 +44,7 @@ const NoteForm = ({ editNote, isEditing = false }: NoteFormProps) => {
     await client.post("/notes", data);
     return dispatch(setNoteView(NOTE_LIST_VIEW));
   };
+
   return (
     <Box>
       <FormControl>
@@ -66,7 +67,11 @@ const NoteForm = ({ editNote, isEditing = false }: NoteFormProps) => {
           }}
           color="gray.500"
         />
-        <ReactRTE onChange={editorChange} initialValue={note.description} />
+        <ReactRTE
+          data-testid="rte-test"
+          onChange={editorChange}
+          initialValue={note.description}
+        />
         <Flex>
           <ActionButton
             onClick={(e) => handleSubmit(note, e)}
