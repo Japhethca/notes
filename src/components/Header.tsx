@@ -41,10 +41,10 @@ const Header = () => {
           color="gray.600"
           onClick={() => dispatch(setNoteView(NOTE_LIST_VIEW))}
         >
+          Notes
           {state.currentUser?.username &&
             username &&
-            state.currentUser.username}{" "}
-          Notes
+            `(${state.currentUser.username})`}
         </Text>
         <Flex>
           <IconButton
