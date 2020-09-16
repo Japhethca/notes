@@ -6,12 +6,13 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuDivider,
   MenuItem,
   Icon,
+  Link,
 } from "@chakra-ui/core";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
+import NextLink from "next/link";
 
 import { storeContext, setNoteView } from "../store";
 import { NOTE_CREATE_VIEW, NOTE_LIST_VIEW } from "../store/constants";
@@ -28,17 +29,6 @@ const Header = () => {
     router.push("/");
   };
 
-  const gotoLogin = (e) => {
-    e.preventDefault();
-    router.push("/login");
-  };
-
-  const gotoMyNotes = (e) => {
-    e.preventDefault();
-    const username = state.currentUser.username;
-    router.push("/[username]", `/${username}`, { shallow: true });
-  };
-
   return (
     <Box width="100%" mt={[2, 5, 10]}>
       <Flex justifyContent="space-between" alignItems="center">
@@ -48,6 +38,7 @@ const Header = () => {
           fontSize="2rem"
           cursor="pointer"
           textTransform="capitalize"
+          color="gray.600"
           onClick={() => dispatch(setNoteView(NOTE_LIST_VIEW))}
         >
           {state.currentUser?.username &&
@@ -57,42 +48,95 @@ const Header = () => {
         </Text>
         <Flex>
           <IconButton
+            onClick={() => dispatch(setNoteView(NOTE_CREATE_VIEW))}
             icon="add"
             size="lg"
             aria-label="add note"
             border="0"
-            bg="#fc5c9c"
-            variantColor="#fc5c9c"
+            bg="pink.400"
             color="#fff"
-            onClick={() => dispatch(setNoteView(NOTE_CREATE_VIEW))}
+            variantColor="pink"
+            _focus={{
+              outline: 0,
+              bg: "pink.500",
+            }}
           />
           <Menu>
             <MenuButton
               ml="2"
               px={4}
               py={2}
-              transition="all 0.2s"
+              transition="all 0.4s"
               rounded="md"
               borderWidth="1px"
-              _hover={{ bg: "gray.100" }}
-              _expanded={{ bg: "red.200" }}
-              _focus={{ outline: 0, boxShadow: "outline" }}
+              _hover={{ bg: "gray.200" }}
+              _expanded={{ bg: "gray.200" }}
+              _focus={{ outline: 0 }}
             >
               <Icon name="drag-handle" />
             </MenuButton>
-            <MenuList>
+            <MenuList padding="0">
               {state.isAuthenticated ? (
                 <React.Fragment>
-                  <MenuItem border="0" onClick={gotoMyNotes}>
-                    My Notes
+                  {state.currentUser.is_admin && (
+                    <MenuItem border="0">
+                      <NextLink href="/admin" shallow passHref>
+                        <Link
+                          textDecoration="none"
+                          display="block"
+                          width="100%"
+                          color="pink.500"
+                          _focus={{
+                            outline: 0,
+                          }}
+                          _hover={{ textDecoration: "none" }}
+                        >
+                          Dashboard
+                        </Link>
+                      </NextLink>
+                    </MenuItem>
+                  )}
+                  <MenuItem border="0">
+                    <NextLink
+                      href="/[username]"
+                      as={`/${state.currentUser.username}`}
+                      shallow
+                      passHref
+                    >
+                      <Link
+                        textDecoration="none"
+                        display="block"
+                        width="100%"
+                        color="pink.500"
+                        _focus={{
+                          outline: 0,
+                        }}
+                        _hover={{ textDecoration: "none" }}
+                      >
+                        My Notes
+                      </Link>
+                    </NextLink>
                   </MenuItem>
-                  <MenuItem border="0" mt="1" onClick={userLogout}>
+                  <MenuItem border="0" onClick={userLogout} color="pink.500">
                     Logout
                   </MenuItem>
                 </React.Fragment>
               ) : (
-                <MenuItem border="0" onClick={gotoLogin}>
-                  Login
+                <MenuItem border="0">
+                  <NextLink href="/login" shallow passHref>
+                    <Link
+                      textDecoration="none"
+                      display="block"
+                      width="100%"
+                      color="pink.500"
+                      _focus={{
+                        outline: 0,
+                      }}
+                      _hover={{ textDecoration: "none" }}
+                    >
+                      Login
+                    </Link>
+                  </NextLink>
                 </MenuItem>
               )}
             </MenuList>
