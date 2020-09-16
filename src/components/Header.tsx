@@ -22,11 +22,24 @@ const Header = () => {
   const router = useRouter();
   const { dispatch } = useContext(storeContext);
   const username = router.query?.username;
+  const routePath = router.pathname;
 
   const userLogout = (e) => {
     e.preventDefault();
     handleLogout();
     router.push("/");
+  };
+
+  const getHeaderTitle = () => {
+    if (routePath === "/admin") {
+      return "Notes Admin";
+    }
+    if (routePath === "/[username]" && username) {
+      return (
+        state.currentUser?.username && `Notes (${state.currentUser.username})`
+      );
+    }
+    return "Notes";
   };
 
   return (
@@ -37,14 +50,10 @@ const Header = () => {
           mb="3"
           fontSize="2rem"
           cursor="pointer"
-          textTransform="capitalize"
           color="gray.600"
           onClick={() => dispatch(setNoteView(NOTE_LIST_VIEW))}
         >
-          Notes
-          {state.currentUser?.username &&
-            username &&
-            `(${state.currentUser.username})`}
+          {getHeaderTitle()}
         </Text>
         <Flex>
           <IconButton
@@ -72,6 +81,7 @@ const Header = () => {
               _hover={{ bg: "gray.200" }}
               _expanded={{ bg: "gray.200" }}
               _focus={{ outline: 0 }}
+              data-testid="menu-btn-test"
             >
               <Icon name="drag-handle" />
             </MenuButton>
