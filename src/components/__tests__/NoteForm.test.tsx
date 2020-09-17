@@ -1,11 +1,10 @@
 import React from "react";
+import { ThemeProvider } from "@chakra-ui/core";
+import { render } from "@testing-library/react";
 
 import NoteForm from "../NoteForm";
-import { render } from "@testing-library/react";
-import { ThemeProvider } from "@chakra-ui/core";
 import { storeContext } from "../../store";
 
-// jest.mock('next/dynamic', () => (fn) => )
 const getComponent = () => {
   const store = {
     dispatch: jest.fn(),
@@ -27,8 +26,6 @@ describe("NoteForm", () => {
       component
     );
     expect(getByPlaceholderText(/note title/i)).toBeInTheDocument;
-    const textBox = await findByRole("textbox");
-    const e = container.querySelector(".DraftEditor-root");
-    console.log(debug(e));
+    await findByRole("textbox");
   });
 });

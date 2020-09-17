@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent, useState } from "react";
 import RichTextEditor, { EditorValue } from "react-rte";
 import { ToolbarConfig } from "react-rte/lib/lib/EditorToolbarConfig";
 
@@ -9,8 +9,11 @@ interface EditorProps {
   initialValue: string;
 }
 
-export const Editor: React.FC<EditorProps> = ({ onChange, initialValue }) => {
-  const [value, setValue] = React.useState<EditorValue>(
+export const Editor: FunctionComponent<EditorProps> = ({
+  onChange,
+  initialValue,
+}) => {
+  const [value, setValue] = useState<EditorValue>(
     RichTextEditor.createValueFromString(initialValue, "markdown")
   );
 

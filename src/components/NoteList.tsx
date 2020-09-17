@@ -64,7 +64,7 @@ const NoteList: FunctionComponent<NoteListProps> = ({
   };
 
   return (
-    <Box>
+    <Box data-testid="note-list-test">
       {data.map((note: INote) => (
         <Note
           key={`${note.id}-${note.title}`}

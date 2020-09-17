@@ -13,12 +13,17 @@ const Users: FunctionComponent<UserProps> = () => {
   if (error) {
     return <div>Could note fetch users</div>;
   }
+
   if (!users) {
     return (
       <Flex justifyContent="center" alignItems="center" mt="2" mb="2">
         <Spinner />
       </Flex>
     );
+  }
+
+  if (users.length < 1) {
+    return <div>No users yet</div>;
   }
 
   return (
